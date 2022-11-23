@@ -1845,7 +1845,8 @@ const toUrlFormat = (item) => {
       ? `[#${item.payload.issue.number}](${urlPrefix}/${item.repo.name}/issues/${item.payload.issue.number})`
       : `[#${item.payload.pull_request.number}](${urlPrefix}/${item.repo.name}/pull/${item.payload.pull_request.number})`;
   }
-  return `[${item.split("/").pop()}](${urlPrefix}/${item})`;
+  const name = item.split("/").pop();
+  return `[${capitalize(name)}](${urlPrefix}/${item})`;
 };
 
 /**
