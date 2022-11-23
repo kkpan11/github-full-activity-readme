@@ -28,11 +28,11 @@ const urlPrefix = "https://github.com";
 
 const toUrlFormat = (item) => {
   if (typeof item === "object") {
-    return Object.hasOwnProperty.call(item.payload, "issue")
+    if (Object.hasOwnProperty.call(item.payload, "issue"))
       ? `[#${item.payload.issue.number}](${urlPrefix}/${item.repo.name}/issues/${item.payload.issue.number})`
-      : `[#${item.payload.pull_request.number}](${urlPrefix}/${item.repo.name}/pull/${item.payload.pull_request.number})`;
+        : `[#${item.payload.pull_request.number}](${urlPrefix}/${item.repo.name}/pull/${item.payload.pull_request.number})`;
   }
-  return `[${item}](${urlPrefix}/${item})`;
+  return `[${item.split('/').pop()}](${urlPrefix}/${item})`;
 };
 
 /**
@@ -121,7 +121,7 @@ const serializers = {
     return `${line} PR ${toUrlFormat(item)} in ${toUrlFormat(item.repo.name)}`;
   },
   PushEvent: (item) => {
-    const repo = toUrlFormat(item.repo.url);
+    const repo = toUrlFormat(item.repo.name);
     const commitCount = item.payload.commits.length;
     if (commitCount === 1) return `📦 Pushed to ${repo}`;
     else if (commitCount > 1)
