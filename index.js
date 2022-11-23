@@ -80,6 +80,28 @@ const commitFile = async () => {
   await exec("git", ["push"]);
 };
 
+const mergeCommitEvents = (events) => {
+  // Combines all like PushEvents (adjacent PushEvents to the same repo)
+  // in `events` into a single PushEvent,
+  // mutating the events array and preserving order
+  let i = 0;
+  while (i < events.length - 1) {
+    if (
+      events[i].type === "PushEvent" &&
+      events[i + 1].type === "PushEvent" &&
+      events[i].repo.id === events[i + 1].repo.id
+    ) {
+      events[i].payload.commits = events[i].payload.commits.concat(
+        events[i + 1].payload.commits
+      );
+      events.splice(i + 1, 1);
+    } else {
+      i++;
+    }
+  }
+  return events;
+}
+
 const serializers = {
   IssueCommentEvent: (item) => {
     return `🗣 Commented on ${toUrlFormat(item)} in ${toUrlFormat(
@@ -98,6 +120,15 @@ const serializers = {
       : `${emoji} ${capitalize(item.payload.action)}`;
     return `${line} PR ${toUrlFormat(item)} in ${toUrlFormat(item.repo.name)}`;
   },
+  PushEvent: (item) => {
+    const repo = toUrlFormat(item.repo.url);
+    const commitCount = item.payload.commits.length;
+    if (commitCount === 1)
+      return `📦 Pushed to ${repo}`;
+    else if (commitCount > 1)
+      return `📦 Pushed ${commitCount} commits to ${repo}`;
+    return "";
+  }
 };
 
 Toolkit.run(
@@ -112,7 +143,9 @@ Toolkit.run(
       `Activity for ${GH_USERNAME}, ${events.data.length} events found.`
     );
 
-    const content = events.data
+    tools.log.debug(mergeCommitEvents(events.data));
+
+    const content = mergeCommitEvents(events.data)
       // Filter out any boring activity
       .filter((event) => serializers.hasOwnProperty(event.type))
       // We only have five lines to work with
