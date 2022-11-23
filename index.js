@@ -100,7 +100,7 @@ const mergeCommitEvents = (events) => {
     }
   }
   return events;
-}
+};
 
 const serializers = {
   IssueCommentEvent: (item) => {
@@ -123,12 +123,11 @@ const serializers = {
   PushEvent: (item) => {
     const repo = toUrlFormat(item.repo.url);
     const commitCount = item.payload.commits.length;
-    if (commitCount === 1)
-      return `📦 Pushed to ${repo}`;
+    if (commitCount === 1) return `📦 Pushed to ${repo}`;
     else if (commitCount > 1)
       return `📦 Pushed ${commitCount} commits to ${repo}`;
     return "";
-  }
+  },
 };
 
 Toolkit.run(
