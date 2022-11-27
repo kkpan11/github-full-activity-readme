@@ -145,7 +145,7 @@ const serializers = {
   },
   CreateEvent: (item) => {
     return `🎉 Created ${toUrlFormat(item.repo.url)}`;
-  }
+  },
 };
 
 Toolkit.run(

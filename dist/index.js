@@ -1839,7 +1839,7 @@ const urlPrefix = "https://github.com";
  * @returns {String}
  */
 
-const toUrlFormat = (item) => {
+const toUrlFormat = (item, name) => {
   if (typeof item === "object") {
     return Object.hasOwnProperty.call(item.payload, "issue")
       ? `[#${item.payload.issue.number}](${urlPrefix}/${item.repo.name}/issues/${item.payload.issue.number})`
@@ -1849,7 +1849,7 @@ const toUrlFormat = (item) => {
   if (!item.startsWith(urlPrefix)) item = `${urlPrefix}/${item}`;
   else if (!item.startsWith("http")) item = `https://${item}`;
 
-  const name = item.split("/").pop();
+  if (name === undefined) name = item.split("/").pop();
   return `[${capitalize(name)}](${item})`;
 };
 
@@ -1949,6 +1949,15 @@ const serializers = {
     return `🍴 Forked ${toUrlFormat(item.repo.url)} to ${toUrlFormat(
       item.payload.forkee.html_url
     )}`;
+  },
+  WatchEvent: (item) => {
+    return `⭐️ Starred ${toUrlFormat(item.repo.url)}`;
+  },
+  PublicEvent: (item) => {
+    return `🎉 Open sourced ${toUrlFormat(item.repo.url)}`;
+  },
+  CreateEvent: (item) => {
+    return `🎉 Created ${toUrlFormat(item.repo.url)}`;
   },
 };
 
