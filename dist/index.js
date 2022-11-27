@@ -1846,12 +1846,11 @@ const toUrlFormat = (item) => {
       : `[#${item.payload.pull_request.number}](${urlPrefix}/${item.repo.name}/pull/${item.payload.pull_request.number})`;
   }
   item = item.replace(new RegExp("api.github.com/.*?/"), "github.com/");
-  if (!item.startsWith("http")) item = `https://${item}`;
+  if (!item.startsWith(urlPrefix)) item = `${urlPrefix}/${item}`;
+  else if (!item.startsWith("http")) item = `https://${item}`;
 
   const name = item.split("/").pop();
-  const itemurl =
-    item.findIndex(urlPrefix) === -1 ? `${urlPrefix}/${item}` : item;
-  return `[${capitalize(name)}](${itemurl})`;
+  return `[${capitalize(name)}](${item})`;
 };
 
 /**
@@ -1945,6 +1944,11 @@ const serializers = {
     return commitCount === 1
       ? `📦 Pushed to ${repo}`
       : `📦 Pushed ${commitCount} commits to ${repo}`;
+  },
+  ForkEvent: (item) => {
+    return `🍴 Forked ${toUrlFormat(item.repo.url)} to ${toUrlFormat(
+      item.payload.forkee.html_url
+    )}`;
   },
 };
 
