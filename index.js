@@ -32,8 +32,13 @@ const toUrlFormat = (item) => {
       ? `[#${item.payload.issue.number}](${urlPrefix}/${item.repo.name}/issues/${item.payload.issue.number})`
       : `[#${item.payload.pull_request.number}](${urlPrefix}/${item.repo.name}/pull/${item.payload.pull_request.number})`;
   }
+  item = item.replace(new RegExp("api.github.com/.*?/"), "github.com/");
+  if (!item.startsWith("http")) item = `https://${item}`;
+
   const name = item.split("/").pop();
-  return `[${capitalize(name)}](${urlPrefix}/${item})`;
+  const itemurl =
+    item.findIndex(urlPrefix) === -1 ? `${urlPrefix}/${item}` : item;
+  return `[${capitalize(name)}](${itemurl})`;
 };
 
 /**
@@ -122,12 +127,11 @@ const serializers = {
     return `${line} PR ${toUrlFormat(item)} in ${toUrlFormat(item.repo.name)}`;
   },
   PushEvent: (item) => {
-    const repo = toUrlFormat(item.repo.name);
+    const repo = toUrlFormat(item.repo.url);
     const commitCount = item.payload.commits.length;
-    if (commitCount === 1) return `📦 Pushed to ${repo}`;
-    else if (commitCount > 1)
-      return `📦 Pushed ${commitCount} commits to ${repo}`;
-    return "";
+    return commitCount === 1
+      ? `📦 Pushed to ${repo}`
+      : `📦 Pushed ${commitCount} commits to ${repo}`;
   },
 };
 
