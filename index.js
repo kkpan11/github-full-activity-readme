@@ -173,10 +173,10 @@ Toolkit.run(
       // Only show the latest MAX_LINES
       .slice(0, MAX_LINES);
 
-
-    tools.log.debug(mergeCommitEvents(events.data)
-      .filter((event) => serializers.hasOwnProperty(event.type))
-      .map((item) => serializers[item.type](item))
+    tools.log.debug(
+      mergeCommitEvents(events.data)
+        .filter((event) => serializers.hasOwnProperty(event.type))
+        .map((item) => serializers[item.type](item))
     );
 
     const readmeContent = fs.readFileSync("./README.md", "utf-8").split("\n");
