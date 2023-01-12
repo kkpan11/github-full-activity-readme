@@ -177,7 +177,6 @@ Toolkit.run(
     tools.log.debug(mergeCommitEvents(events.data)
       .filter((event) => serializers.hasOwnProperty(event.type))
       .map((item) => serializers[item.type](item))
-      .filter((item, index, self) => self.indexOf(item) === index && item)
     );
 
     const readmeContent = fs.readFileSync("./README.md", "utf-8").split("\n");
