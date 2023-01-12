@@ -156,6 +156,7 @@ Toolkit.run(
       username: GH_USERNAME,
       per_page: 100,
     });
+
     tools.log.debug(
       `Activity for ${GH_USERNAME}, ${events.data.length} events found.`
     );
@@ -165,10 +166,12 @@ Toolkit.run(
     const content = mergeCommitEvents(events.data)
       // Filter out any boring activity
       .filter((event) => serializers.hasOwnProperty(event.type))
+      // Slice the array, as later sections take increasing time complexity
+      .slice(0, 10 * MAX_LINES)
       // Call the serializers to construct a string
       .map((item) => serializers[item.type](item))
-      // Filter all duplicate lines
-      .filter((item, index, self) => self.indexOf(item) === index)
+      // Filter all duplicate lines and blank lines
+      .filter((item, index, self) => self.indexOf(item) === index && item)
       // Only show the latest MAX_LINES
       .slice(0, MAX_LINES);
 
