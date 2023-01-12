@@ -161,8 +161,6 @@ Toolkit.run(
       `Activity for ${GH_USERNAME}, ${events.data.length} events found.`
     );
 
-    tools.log.debug(mergeCommitEvents(events.data));
-
     const content = mergeCommitEvents(events.data)
       // Filter out any boring activity
       .filter((event) => serializers.hasOwnProperty(event.type))
@@ -174,6 +172,13 @@ Toolkit.run(
       .filter((item, index, self) => self.indexOf(item) === index && item)
       // Only show the latest MAX_LINES
       .slice(0, MAX_LINES);
+
+
+    tools.log.debug(mergeCommitEvents(events.data)
+      .filter((event) => serializers.hasOwnProperty(event.type))
+      .map((item) => serializers[item.type](item))
+      .filter((item, index, self) => self.indexOf(item) === index && item)
+    );
 
     const readmeContent = fs.readFileSync("./README.md", "utf-8").split("\n");
 
