@@ -165,10 +165,12 @@ Toolkit.run(
     const content = mergeCommitEvents(events.data)
       // Filter out any boring activity
       .filter((event) => serializers.hasOwnProperty(event.type))
-      // We only have five lines to work with
-      .slice(0, MAX_LINES)
-      // Call the serializer to construct a string
-      .map((item) => serializers[item.type](item));
+      // Call the serializers to construct a string
+      .map((item) => serializers[item.type](item))
+      // Filter all duplicate lines
+      .filter((item, index, self) => self.indexOf(item) === index)
+      // Only show the latest MAX_LINES
+      .slice(0, MAX_LINES);
 
     const readmeContent = fs.readFileSync("./README.md", "utf-8").split("\n");
 
