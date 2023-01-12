@@ -19790,6 +19790,8 @@ const { Toolkit } = __nccwpck_require__(7045);
 const GH_USERNAME = core.getInput("GH_USERNAME");
 const COMMIT_MSG = core.getInput("COMMIT_MSG");
 const MAX_LINES = core.getInput("MAX_LINES");
+const EVENT_TYPES = core.getInput("EVENT_TYPES").split(",").map((e) => e.trim().toLowerCase());
+
 /**
  * Returns the sentence case representation
  * @param {String} str - the string
@@ -19946,6 +19948,8 @@ Toolkit.run(
     const content = mergeCommitEvents(events.data)
       // Filter out any boring activity
       .filter((event) => serializers.hasOwnProperty(event.type))
+      // Filter out any activity not in EventTypes
+      .filter((event) => EVENT_TYPES.includes(event.type.toLowerCase()))
       // Slice the array, as later sections take increasing time complexity
       .slice(0, 10 * MAX_LINES)
       // Call the serializers to construct a string
@@ -19954,12 +19958,6 @@ Toolkit.run(
       .filter((item, index, self) => self.indexOf(item) === index && item)
       // Only show the latest MAX_LINES
       .slice(0, MAX_LINES);
-
-    tools.log.debug(
-      mergeCommitEvents(events.data)
-        .filter((event) => serializers.hasOwnProperty(event.type))
-        .map((item) => serializers[item.type](item))
-    );
 
     const readmeContent = fs.readFileSync("./README.md", "utf-8").split("\n");
 

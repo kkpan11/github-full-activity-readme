@@ -15,6 +15,10 @@ inputs:
     description: "The maximum number of lines populated in your readme file"
     default: 5
     required: false
+  EVENT_TYPES:
+    description: "The types of events to be included in the readme file"
+    default: "IssueCommentEvent,IssuesEvent,PullRequestEvent,PushEvent,ForkEvent,WatchEvent,PublicEvent,CreateEvent"
+    required: false
 
 branding:
   color: yellow
