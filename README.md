@@ -4,11 +4,11 @@ Updates `README.md` with the recent GitHub activity of a user.
 
 Here's [my](https://github.com/Pop101/Pop101) recent commits:
 <!--START_SECTION:activity-->
-1. 📦 Pushed 10 commits to [Github-full-activity-readme](https://github.com/Pop101/github-full-activity-readme)
-2. ⭐️ Starred [Ugit](https://github.com/turfptax/ugit)
-3. 📦 Pushed 4 commits to [Pop101](https://github.com/Pop101/Pop101)
-4. 🎉 Created [Pop101](https://github.com/Pop101/Pop101)
-5. 📦 Pushed 11 commits to [Github-full-activity-readme](https://github.com/Pop101/github-full-activity-readme)
+1. 🎉 Open sourced [Peopledle](https://github.com/Pop101/Peopledle)
+2. 📦 Pushed 5 commits to [Peopledle](https://github.com/Pop101/Peopledle)
+3. 🎉 Created [Github-full-activity-readme](https://github.com/Pop101/github-full-activity-readme)
+4. 📦 Pushed to [Github-full-activity-readme](https://github.com/Pop101/github-full-activity-readme)
+5. 📦 Pushed to [Pop101](https://github.com/Pop101/Pop101)
 <!--END_SECTION:activity-->
 
 ---
