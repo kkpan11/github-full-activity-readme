@@ -4,11 +4,11 @@ Updates `README.md` with the recent GitHub activity of a user.
 
 Here's [my](https://github.com/Pop101/Pop101) recent commits:
 <!--START_SECTION:activity-->
-1. 📦 Pushed 6 commits to [RockPaperScissorsTournament](https://github.com/NoxNovus/RockPaperScissorsTournament)
-2. ⭐️ Starred [Spectre-meltdown-checker](https://github.com/speed47/spectre-meltdown-checker)
-3. 📦 Pushed 2 commits to [RockPaperScissorsTournament](https://github.com/NoxNovus/RockPaperScissorsTournament)
-4. 🎉 Created [RockPaperScissorsTournament](https://github.com/NoxNovus/RockPaperScissorsTournament)
-5. 🎉 Open sourced [Peopledle](https://github.com/Pop101/Peopledle)
+1. 📦 Pushed 11 commits to [RPSTournament](https://github.com/NoxNovus/RPSTournament)
+2. 📦 Pushed 2 commits to [Fen-link-site](https://github.com/kynadev/fen-link-site)
+3. 📦 Pushed 27 commits to [Peopledle](https://github.com/Pop101/Peopledle)
+4. 📦 Pushed 6 commits to [RockPaperScissorsTournament](https://github.com/NoxNovus/RockPaperScissorsTournament)
+5. ⭐️ Starred [Spectre-meltdown-checker](https://github.com/speed47/spectre-meltdown-checker)
 <!--END_SECTION:activity-->
 
 ---
