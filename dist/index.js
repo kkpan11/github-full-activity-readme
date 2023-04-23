@@ -19821,7 +19821,7 @@ const toUrlFormat = (item, name) => {
   else if (!item.startsWith("http")) item = `https://${item}`;
 
   if (name === undefined) name = item.split("/").pop();
-  return `[${capitalize(name)}](${item})`;
+  return `[${name}](${item})`;
 };
 
 /**
